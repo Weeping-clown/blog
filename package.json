@@ -1,0 +1,29 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "my blog",
+  "author": "1178567243@qq.com",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/style-resources": "^0.1.2",
+    "ant-design-vue": "^1.1.10",
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.4.0",
+    "swiper": "^4.4.6",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.3.3"
+  },
+  "devDependencies": {
+    "node-sass": "^4.11.0",
+    "nodemon": "^1.18.9",
+    "sass-loader": "^7.1.0",
+    "scss": "^0.2.4",
+    "scss-loader": "0.0.1"
+  }
+}
