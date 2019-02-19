@@ -81,14 +81,15 @@ export default {
     };
   },
   created: function() {
-    console.log(this.$axios)
-    this.$axios.getData(
-      "api/user/messageNoRead",
-      {
-        token: "5c1ba571a1964ab28ead2f08af57d4fd"
-      },
-      "post"
-    );
+    console.log(this.$axios);
+    this.$axios({
+      method: "post",
+      url: "api/user/messageNoRead",
+      data: { token: "5c1ba571a1964ab28ead2f08af57d4fd" }
+    });
+    this.$post("api/user/messageNoRead", {
+      token: "5c1ba571a1964ab28ead2f08af57d4fd"
+    });
     // getData("api/user/messageNoRead", {
     //   token: "5c1ba571a1964ab28ead2f08af57d4fd"
     // });

@@ -1,9 +1,8 @@
 import axios from "axios";
-import Vue from "vue";
-// import qs from "qs";
+import Vue from 'vue';
+import { post } from "@/config/request/http.js";
 
-Vue.prototype.$axios = axios;
-Vue.prototype.$axios.create({
+axios.create({
   headers: {
     // "Content-Type": "application/json" //以json格式传参
     "Content-Type": "application/x-www-form-urlencoded" //以key - val 形式传参
@@ -12,24 +11,44 @@ Vue.prototype.$axios.create({
   baseURL: "http://192.168.2.23:8080/qianlou"
 });
 
-Vue.prototype.$axios.prototype.getData = (url, data, type) => {
-  !type && (type = "post");
-  let params = new URLSearchParams();
-  for (let key in config.data) {
-    let val = config.data[key];
-    if (!config.data[key] && config.data[key] != 0) {
-      val = "";
-    }
-    console.log(key, val);
-    params.append(key, val);
+/**
+ * 请求拦截
+ */
+axios.interceptors.request.use(
+  config => {
+      console.log(config)
+    return config;
+  },
+  error => {
+    return Promise.error(error);
   }
-  Vue.prototype.$axios({
-    method: type,
-    url: url,
-    data: params
-  });
-};
+);
 
+/**
+ * 响应拦截
+ * 如果返回的状态码为200，说明接口请求成功，可以正常拿到数据
+ */
+axios.interceptors.response.use(
+  response => {
+    if (response.status === 200) {
+      return Promise.resolve(response);
+    } else {
+      return Promise.reject(response);
+    }
+  },
+  error => {
+    if (error.response && error.response.status) {
+        this.$message.error('忘网络开小差了,请稍后再试');
+    }
+  }
+);
+
+
+Vue.prototype.$axios = axios;
+Vue.prototype.$post = post;
+export default axios;
+
+//直接暴露方法 页面注入使用
 // import axios from "axios";
 // // import qs from "qs";
 
