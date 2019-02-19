@@ -3,7 +3,7 @@
 > my blog
 
 ## Build Setup
-## nuxt + ant-design-vue + vue
+## nuxt + ant-design-vue + vue + axios
 
 ``` bash
 # install dependencies
