@@ -57,7 +57,8 @@
 <script>
 import Headers from "~/components/Headers.vue";
 import list from "~/components/List.vue";
-// import { getData } from "~/plugins/axios.js";
+import { getData } from "~/plugins/axios.js";
+import axios from "axios";
 
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.min.css";
@@ -81,18 +82,14 @@ export default {
     };
   },
   created: function() {
-    console.log(this.$axios);
-    this.$axios({
-      method: "post",
-      url: "api/user/messageNoRead",
-      data: { token: "5c1ba571a1964ab28ead2f08af57d4fd" }
-    });
-    this.$post("api/user/messageNoRead", {
-      token: "5c1ba571a1964ab28ead2f08af57d4fd"
-    });
-    // getData("api/user/messageNoRead", {
-    //   token: "5c1ba571a1964ab28ead2f08af57d4fd"
+    // this.$post("/api/user").then(res => {
+    //   console.log(res);
     // });
+    // axios({ url: "/api/user", method: "post" }).then(res => {
+    //   console.log(res);
+    // });
+
+    getData("/api/user");
   },
   mounted: function() {
     var mySwiper = new Swiper(".swiper-container", {
