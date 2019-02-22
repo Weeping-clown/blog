@@ -4,4 +4,6 @@ var router = Router();
 
 router.get("/", myrouter.indexShow);
 router.get("/user", myrouter.indexShow);
+
+router.get('/test', myrouter.test)
 export default router;

@@ -4,10 +4,13 @@ const sql = require("../../model/sql.js");
 var dbs = require("../../redis/redis.js");
 
 exports.indexShow = (req, res, next) => {
+  res.set('Content-Type', 'application/json;charset=UTF-8');
   db.query(sql.index, function(err, rows, fields) {
     if (err) {
       throw err;
     }
+    res.get('Content-Type');
+    console.log(res.get('Content-Type'));
     // console.log("成功", results);
     var allparentinfo = [];
     var indexClass = [];
@@ -25,3 +28,14 @@ exports.indexShow = (req, res, next) => {
     res.json(data);
   });
 };
+
+let test = (req, res, next) => {
+  res.json({
+    error:0,
+    success: 1
+  })
+}
+
+module.exports = {
+  test
+}

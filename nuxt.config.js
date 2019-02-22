@@ -19,7 +19,6 @@ module.exports = {
     ],
     link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
- 
 
   /*
    ** Customize the progress-bar color
@@ -44,20 +43,22 @@ module.exports = {
     "@nuxtjs/style-resources"
   ],
 
-  // axios: {
-  //   proxy: true
-  //   // See https://github.com/nuxt-community/axios-module#options
-  // },
-  // proxy: [
-  //   [
-  //     "/api",
-  //     {
-  //       target: "http://192.168.2.23:8011/", // api主机
-  //       // pathRewrite: { "^/api": "/" }
-  //     }
-  //   ]
-  // ],
-  
+  axios: {
+    proxy: true,
+    prefix: "/api/",
+    credentials: true
+    // See https://github.com/nuxt-community/axios-module#options
+  },
+  proxy: [
+    [
+      "/api",
+      {
+        target: "http://192.168.2.23:8011/", // api主机
+        pathRewrite: { "^/api": "/" }
+      }
+    ]
+  ],
+
   styleResources: {
     scss: ["./assets/css/*.scss"]
   },
@@ -69,5 +70,6 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
+    ssr: false
   }
 };

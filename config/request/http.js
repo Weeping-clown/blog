@@ -44,16 +44,8 @@ axios.interceptors.response.use(
 
 export function post(url, params) {
   return new Promise((resolve, reject) => {
-    let reParams = new URLSearchParams();
-    for (let key in params) {
-      let val = params[key];
-      if (!params[key] && params[key] != 0) {
-        val = "";
-      }
-      reParams.append(key, val);
-    }
     axios
-      .post(url, reParams)
+      .post(url, qs.stringify(params))
       .then(res => {
         console.log("post请求", res.data);
         resolve(res.data);
@@ -64,6 +56,20 @@ export function post(url, params) {
   });
 }
 
-export function $axios(){
+export function get(url, params) {
+  return new Promise((resolve, reject) => {
+    axios
+      .get(url)
+      .then(res => {
+        console.log("get请求", res.data);
+        resolve(res.data);
+      })
+      .catch(err => {
+        reject(err.data);
+      });
+  });
+}
+
+export function $axios() {
   return axios;
-};
+}

@@ -1,24 +1,21 @@
 <template>
   <section class="container">
     <headers />
+    <div @click="getData">调接口</div>
     <div class="content-box">
       <div class="c-left-box">
         <div class="swiper-container">
           <div class="swiper-wrapper">
             <div class="swiper-slide">
-              <img
-                src="../assets/imgs/banner1.jpg"
-                alt=""
-              >
+              <img src="../assets/imgs/banner1.jpg" alt="" />
             </div>
-            <div class="swiper-slide"><img
-                src="../assets/imgs/banner2.jpg"
-                alt=""
-              ></div>
-            <div class="swiper-slide"><img
-                src="../assets/imgs/banner3.jpg"
-                alt=""
-              ></div>
+            <div class="swiper-slide">
+              <img src="../assets/imgs/banner2.jpg" alt="" />
+            </div>
+
+            <div class="swiper-slide">
+              <img src="../assets/imgs/banner3.jpg" alt="" />
+            </div>
           </div>
           <!-- 如果需要分页器 -->
           <div class="swiper-pagination"></div>
@@ -36,15 +33,10 @@
             @search="onSearch"
             enterButton
           />
-          <a-list
-            size="large"
-            bordered
-            :dataSource="data"
-          >
-            <a-list-item
-              slot="renderItem"
-              slot-scope="item, index"
-            >{{item}}</a-list-item>
+          <a-list size="large" bordered :dataSource="data">
+            <a-list-item slot="renderItem" slot-scope="item, index">{{
+              item
+            }}</a-list-item>
             <div slot="header">热门搜索</div>
             <div slot="footer">更多内容</div>
           </a-list>
@@ -57,8 +49,8 @@
 <script>
 import Headers from "~/components/Headers.vue";
 import list from "~/components/List.vue";
-import { getData } from "~/plugins/axios.js";
-import axios from "axios";
+import { axios, fetch } from "~/plugins/axios";
+// import axios from "axios";
 
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.min.css";
@@ -76,20 +68,28 @@ export default {
     Headers,
     list
   },
+  asyncData({}) {
+    // return fetch("/api/user").then(res => {
+    //   console.log(res);
+    //   return { testMsg: res.data };
+    // });
+  },
   data() {
     return {
       data
     };
   },
+  methods: {
+    getData: function() {
+      this.$get("/api/user").then(res => {
+        console.log(res);
+      });
+    }
+  },
   created: function() {
-    // this.$post("/api/user").then(res => {
-    //   console.log(res);
-    // });
-    // axios({ url: "/api/user", method: "post" }).then(res => {
-    //   console.log(res);
-    // });
-
-    getData("/api/user");
+    this.$post("/api/user", { user: "111" }).then(res => {
+      console.log(res);
+    });
   },
   mounted: function() {
     var mySwiper = new Swiper(".swiper-container", {

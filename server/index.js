@@ -8,7 +8,18 @@ import api from "./api";
 const { Nuxt, Builder } = require("nuxt");
 const app = express();
 
-app.use('/api', api)
+var bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// var options = {
+//   setHeaders: function(res, path, stat) {
+//     res.set("Content-Type", "application/json;charset=UTF-8");
+//   }
+// };
+// app.use(express.static('public', options));
+
+app.use("/api", api);
 // Import and Set Nuxt.js options
 let config = require("../nuxt.config.js");
 config.dev = !(process.env.NODE_ENV === "production");
@@ -39,6 +50,6 @@ async function start() {
     message: `Server listening on http://${host}:${port}`,
     badge: true
   });
-  console.log('SERVER - Server listening on ' + host + ':' + port) // eslint-disable-line no-console
+  console.log("SERVER - Server listening on " + host + ":" + port); // eslint-disable-line no-console
 }
 start();
