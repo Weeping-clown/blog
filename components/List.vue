@@ -3,25 +3,15 @@
     itemLayout="vertical"
     size="large"
     :pagination="pagination"
-    :dataSource="listData"
+    :dataSource="articles"
     :loading="false"
   >
     <div slot="footer"><b>ant design vue</b> footer part</div>
-    <a-list-item
-      slot="renderItem"
-      slot-scope="item, index"
-      key="item.title"
-    >
-      <template
-        slot="actions"
-        v-for="{type, text} in actions"
-      >
+    <a-list-item slot="renderItem" slot-scope="item, index" key="item.title">
+      <template slot="actions" v-for="{ type, text } in item.actions">
         <span :key="type">
-          <a-icon
-            :type="type"
-            style="margin-right: 8px"
-          />
-          {{text}}
+          <a-icon :type="type" style="margin-right: 8px" />
+          {{ text }}
         </span>
       </template>
       <img
@@ -30,51 +20,48 @@
         alt="logo"
         src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
       />
-      <a-list-item-meta :description="item.description">
-        <a
-          slot="title"
-          :href="item.href"
-        >{{item.title}}</a>
-        <a-avatar
-          slot="avatar"
-          :src="item.avatar"
-        />
+      <a-list-item-meta :description="item.brief">
+        <a slot="title" :href="item.href">{{ item.title }}</a>
+        <!-- <a-avatar slot="avatar" :src="item.avatar" /> -->
       </a-list-item-meta>
-      {{item.content}}
+      <!-- {{ item.content }} -->
     </a-list-item>
   </a-list>
 </template>
 
 <script>
-const listData = []
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'https://vue.ant.design/',
-    title: `ant design vue part ${i}`,
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  })
-}
-
 export default {
-  data () {
+  data() {
     return {
-      listData,
       pagination: {
-        onChange: (page) => {
+        onChange: page => {
           console.log(page);
         },
-        pageSize: 3,
+        pageSize: 3
       },
       actions: [
-        { type: 'star-o', text: '156' },
-        { type: 'like-o', text: '156' },
-        { type: 'message', text: '2' },
+        { type: "star-o", text: "156" },
+        { type: "like-o", text: "156" },
+        { type: "message", text: "2" }
       ],
-    }
+      articleList: []
+    };
   },
-}
+  props: ["articles"],
+  watch: {
+    articles(data) {
+      data.map(info => {
+        let { star, praise, evaluate } = info;
+        info.actions = [
+          { type: "star-o", text: star },
+          { type: "like-o", text: praise },
+          { type: "message", text: evaluate || 0 }
+        ];
+      });
+      this.articleList = data;
+    }
+  }
+};
 </script>
 
 <style lang="scss">

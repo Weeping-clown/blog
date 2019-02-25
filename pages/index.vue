@@ -1,7 +1,6 @@
 <template>
   <section class="container">
     <headers />
-    <div @click="getData">调接口</div>
     <div class="content-box">
       <div class="c-left-box">
         <div class="swiper-container">
@@ -24,7 +23,7 @@
           <div class="swiper-button-next"></div>
         </div>
 
-        <list />
+        <list :articles="articles"/>
       </div>
       <div class="c-right-box">
         <div class="c-search-box">
@@ -49,7 +48,6 @@
 <script>
 import Headers from "~/components/Headers.vue";
 import list from "~/components/List.vue";
-import { axios, fetch } from "~/plugins/axios";
 // import axios from "axios";
 
 import Swiper from "swiper";
@@ -76,19 +74,16 @@ export default {
   },
   data() {
     return {
-      data
+      data: [],
+      articles:[]
     };
   },
   methods: {
-    getData: function() {
-      this.$get("/api/user").then(res => {
-        console.log(res);
-      });
-    }
+    onSearch:function(){}
   },
   created: function() {
-    this.$post("/api/user", { user: "111" }).then(res => {
-      console.log(res);
+    this.$post("/api/index", {}).then(res => {
+      this.articles = res.data;
     });
   },
   mounted: function() {

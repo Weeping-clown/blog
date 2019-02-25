@@ -28,7 +28,6 @@ axios.interceptors.request.use(
  */
 axios.interceptors.response.use(
   response => {
-    // res.writeHead(200, {'Content-Type':'application/json;charset=UTF-8'});
     if (response.status === 200) {
       return Promise.resolve(response);
     } else {
@@ -47,7 +46,6 @@ export function post(url, params) {
     axios
       .post(url, qs.stringify(params))
       .then(res => {
-        console.log("post请求", res.data);
         resolve(res.data);
       })
       .catch(err => {
@@ -61,7 +59,6 @@ export function get(url, params) {
     axios
       .get(url)
       .then(res => {
-        console.log("get请求", res.data);
         resolve(res.data);
       })
       .catch(err => {

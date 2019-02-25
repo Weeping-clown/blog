@@ -4,22 +4,16 @@
       <a-col :span="16">
         <a-row>
           <a-col :span="4">
-            <img
-              class="logo"
-              src="../assets/imgs/logo.png"
-              alt="logo"
-            >
+            <img class="logo" src="../assets/imgs/logo.png" alt="logo" />
           </a-col>
-          <a-col
-            :span="4"
-            v-for="nav of navs"
-          ><a>{{nav.name}}</a></a-col>
+          <a-col :span="4" v-for="nav of navs"
+            ><a>{{ nav.name }}</a></a-col
+          >
         </a-row>
       </a-col>
-      <a-col
-        :span="4"
-        :offset="4"
-      ><a @click="$router.push('/user')">登录 - 注册</a></a-col>
+      <a-col :span="4" :offset="4"
+        ><a @click="$router.push('/user')">登录 - 注册</a></a-col
+      >
     </a-row>
   </section>
 </template>
@@ -31,7 +25,7 @@ export default Vue.extend({
     return {
       navs: [{ name: "首页" }, { name: "文章" }, { name: "关于" }]
     };
-  }
+  },
 });
 </script>
 

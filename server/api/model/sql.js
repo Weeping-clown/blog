@@ -2,7 +2,7 @@
  * index show
 */
 
-exports.index = 'select * from user'
+exports.index = 'select * from article'
 
 /**
  * 查找分类
